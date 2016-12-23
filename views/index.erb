@@ -1,0 +1,23 @@
+<!--  ./views/index.erb -->
+<div class="center-header"><%= @content_header %></div>
+<% @products.each do |elem| %>
+<div class="tovar">
+    <div class="index-tovar-list" onClick="location.href='/elem/<%= elem['id'] %>'" >
+        <div class="index-tovar-list-item">
+           <span class="index-tovar-list-nametxt"><%= elem['name'] %></span>
+        </div>
+        <div class="index-tovar-list-container">
+            <div class="index-tovar-list-item">
+                <span>Раздел-></span><span ><a class="index-a" href="/category/<%= elem['category']['category_id'] %>"><%= elem['category']['name'] %></a></span>
+            </div>
+            <div class="index-tovar-list-item">
+                Цена: <b><%= elem['price'] %>&nbsp;<%= @currency %></b>
+            </div>
+            <div class="index-tovar-list-item-right">
+                <a href="/elem/<%= elem['id'] %>"><button class="button-index-list">Инфо>></button></a>
+            </div>
+        </div>
+    </div>
+</div>
+<% end %>
+<!--  ./views/index.erb -->

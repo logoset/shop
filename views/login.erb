@@ -1,0 +1,51 @@
+<!--  ./views/login.erb -->
+<div class="center-header"><%= @content_header %></div>
+<div class="tovar">
+    <form name="login" action="/login" method="post">
+        <fieldset>
+            <legend>Пожалуйста авторизуйтесь в магазине:</legend>
+            <div class="login-form-level1">
+                <div class="login-forminputs-left">
+                    <label for="user">*имя пользователя: </label><br>
+                    <input type="text" name="user" value="" size="20" required><br>
+                    <label for="passw">*пароль: </label><br>
+                    <input type="password" name="passw" value="" size="20" required><br><br>
+                    <button type="submit" onclick="this.form.submit();">Авторизоваться</button>
+                    <a href="<%= request.referrer||'/' %>" onClick="return window.location='<%= request.referrer||'/' %>'"><button>Назад</button></a>
+                </div>
+                <div class="login-forminputs-right">
+                    <table width=100% align=center class="login-table-info">
+                        <caption  style="text-align: left;">Тестовые пользователи:</caption>
+                        <tead>
+                            <tr class="login-table-cells" >
+                                <th>имя</th>
+                                <th>пароль</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="login-table-cells">
+                                <td >user</td>
+                                <td >user</td>
+                            </tr>
+                            <tr class="login-table-cells">
+                                <td>admin</td>
+                                <td>admin</td>
+                            </tr>
+                            <tr>
+                                <td colspan=2 class="login-table-cell-remark">
+                                    <code>
+                                        Примечание:<br>
+                                        Добавить или изменить пользователей можно в файле users.json
+                                    </code>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </fieldset>
+    </form>
+</div>
+<!--  ./views/login.erb -->
+

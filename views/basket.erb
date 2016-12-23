@@ -1,0 +1,34 @@
+<div class="center-header"><%= @content_header %></div>
+<div class="basket-container">
+  <div class="divTable">
+    <div class="divTableBody">
+      <div class="divTableRow">
+        <div class="divTableHead">наименование</div>
+        <div class="divTableHead">цена</div>
+        <div class="divTableHead">количество</div>
+        <div class="divTableHead">сумма</div>
+      </div>
+      <% unless session['logged']['basket'].nil? %>
+        <% session['logged']['basket'].each_key do |key| %>
+          <% prod=@db.select {|item| item['id'].to_s==key.to_s} %>
+          <% prod.each do |elem| %>
+      <div class="divTableRow">
+        <div class="divTableCell"><%= elem['name'] %></div>
+       <div class="divTableCell"><%= elem['price'] %>&nbsp;<%= @currency %></div>
+        <div class="divTableCell"><%= session['logged']['basket']["#{key}"]  %></div>
+        <div class="divTableCell"><%= session['logged']['basket']["#{key}"].to_i * elem['price'].to_f %>&nbsp;<%= @currency %></div>
+      </div>
+          <% end %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+  <div class="basket-buttons">
+    <% unless session['logged']['basket'].nil? %>
+    <a href="/purchase"><button>Купить</button></a>
+    <a href="/trash"><button>Очистить</button></a>
+    <% else %>
+    <a href="<%= "/" %>"><button>Выход</button></a>
+    <% end %>
+  </div>
+</div>

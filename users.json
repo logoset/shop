@@ -1,0 +1,24 @@
+[
+  {
+    "id": 7477439888161565,
+    "login": "user",
+    "password": "user",
+    "role": "customer",
+    "contact": {
+      "email": "user@user.ru",
+      "phone": "+71234567890",
+      "address": "Россия, Краснознаменск, ул.Пользователя 15"
+    }
+  },
+  {
+    "id": 7473459888145165,
+    "login": "admin",
+    "password": "admin",
+    "role": "administrator",
+    "contact": {
+      "email": "admin@user.ru",
+      "phone": "+71234567899",
+      "address": "Россия, Краснознаменск, ул.Пользователя 55"
+    }
+  }
+]

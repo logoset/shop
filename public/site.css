@@ -1,0 +1,355 @@
+html, body {
+    background: #f3f2f3;
+    color: #000000;
+    font-family: Trebuchet MS, Arial, Times New Roman;
+    font-size: 12px;
+    height: 100%;
+    padding: 20px auto;
+}
+/*--------Main---------*/
+#container {
+    background: #99CC99;
+    /*margin: 30px auto;*/
+        margin-right: auto;
+        margin-left: auto;
+    width: 900px;
+    height: 600px;
+}
+
+#header {
+    background: #66CCCC;
+    height: 100px;
+    width: 900px;
+}
+
+#navigation {
+    background: #6BC6D7;
+    width: 900px;
+    height: 20px;
+    position:relative;
+}
+
+#menu {
+    background: #99CC99;
+    float: left;
+    width: 150px;
+    /*height: 400px;*/
+        height: 100%;
+}
+
+#content {
+    background: #d2d0d2;
+    float: right;
+    width: 750px;
+    /*height: 465px;*/
+        height: 100%;
+    overflow:auto;
+}
+
+#clear {
+    clear: both;
+}
+
+#footer {
+    background: #66CCCC;
+    height: 35px;
+    width: 900px;
+    text-align: center;
+    bottom: 0;
+}
+/*--------Main---------*/
+/*--------Common-------*/
+.center-header{
+    text-align: center;
+    font-weight: bold;
+    font-size: 12pt;
+}
+/*--------Common-------*/
+/*--------Layout-------*/
+.maket-header{
+    text-align: center;
+    padding-top: 45px;
+}
+.maket-a, .index-a, .info-a-category{
+    text-decoration: none;
+}
+.maket-nav-basket{
+    position: absolute;
+    margin-top: 3px;
+    left: 40px;
+}
+.maket-nav-login{
+    position:absolute;
+    right:5px;
+}
+.maket-nav-user{
+    font-weight: bold;
+    padding-top: 4px;
+    padding-right: 10px;
+    display: inline-block;
+}
+.maket-menu-container{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    margin: 10px;
+}
+.maket-footer-nav{
+    padding-top: 10px;
+}
+
+/*--------Layout-------*/
+/*--------Index--------*/
+.tovar{
+    /*border: solid 1px darkturquoise;*/
+    border: solid 1px gray;
+    background: #99CC99;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 5px;
+}
+
+.index-tovar-list{
+    cursor:pointer;
+}
+
+.index-tovar-list-item{
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-bottom: 5px;
+}
+.index-tovar-list-item-right{
+    position: absolute;
+    right: 30px;
+    bottom: 0px;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-bottom: 5px;"
+}
+
+.index-tovar-list-nametxt{
+    font-weight: bold;
+    font-size: 11pt;
+    color: maroon;
+}
+.index-tovar-list-container{
+    position:relative;
+}
+
+/*--------Index--------*/
+/*--------Info---------*/
+.info-header{
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    height: 5%; text-align: center;
+    font-weight: bold;
+    font-size: 12pt;
+    background: #DFE9C1;
+}
+.info-header-text{
+    color: #0A5F04;
+}
+.info-container{
+    position: relative;
+    width: 100%;
+    height: 95%;
+    background: lightgoldenrodyellow
+}
+.info-container-left{
+    padding-top: 5px;
+    padding-left: 5px;
+    width: 33%;
+    float: left;"
+}
+/*---Info-->Picture----*/
+.picture-box-outer{
+    width:230px;
+    height: 230px;
+    background: #fff;
+    border: 1px solid #cecece;
+    border-radius: 5px;
+    position: relative;
+    margin-top: 2px;
+    margin-bottom: 2px;
+    margin-right: auto;
+    margin-left: auto;
+    padding: 2px;
+}
+.picture-box-middle-flex{
+    width: 98%;
+    height: 98%;
+    /*border: 1px solid #cecece;*/
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+}
+.picture-box{
+    max-width: none;
+    min-width: auto;
+    min-height: auto;
+    height: 100%;
+    width: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+ /*---Info-->Picture----*/
+
+.info-container-middle{
+    width: 33%;
+    height: 100%;
+    float: left;
+}
+.info-middle-name{
+    padding-top: 7px;
+    padding-left: 7px;
+    padding-right: 7px
+}
+.info-maddle-name-head{
+    font-weight: bold;
+    font-size: 11pt;
+}
+.info-middle-nametxt{
+    font-weight: bold;
+    font-size: 11pt;
+    color: maroon;
+    padding-left: 5px;
+    padding-right: 5px;
+    text-align: justify;
+    /*border: 1px dotted #fc0;*/
+}
+.info-middle-elem{
+    padding: 7px;
+}
+.info-middle-button-container{
+    position: relative
+}
+.info-middle-battonadd{
+    float:left;
+    margin-right: 10px
+}
+.info-middle-battonbasket{
+    float:left;
+    margin-left: 10px
+}
+.info-count-minus{
+    font-weight: bold;
+    color: red;
+}
+.info-container-right{
+    overflow: auto ;
+    height: 100%;
+    float: left;
+    /* see element style addon width: 33% or 65%*/
+}
+.info-right-descript{
+    font-weight: bold;
+}
+.info-right-descripttxt{
+    font-style: italic;
+    padding: 5px;
+    font-size: 10pt;
+    text-align: justify;
+    text-indent: 1.5em;
+}
+
+/*--------Info-------*/
+/*--------Basket-------*/
+.basket-container{
+    style="margin: 10px;
+}
+.basket-buttons{
+    width: 100%;
+    text-align: center;
+    margin-top: 10px;
+}
+/*--------Basket-------*/
+    /* --------BasketTable-------*/
+.divTable{
+    display: table;
+    width: 100%;
+}
+.divTableRow {
+    display: table-row;
+}
+.divTableHeading {
+    background-color: #EEE;
+    display: table-header-group;
+}
+.divTableHead {
+    border: 1px solid #999999;
+    display: table-cell;
+    padding: 3px 10px;
+    font-weight: bold;
+}
+.divTableCell {
+    border: 1px solid #999999;
+    display: table-cell;
+    padding: 3px 10px;
+}
+.divTableHeading {
+    background-color: #EEE;
+    display: table-header-group;
+    font-weight: bold;
+}
+.divTableFoot {
+    background-color: #EEE;
+    display: table-footer-group;
+    font-weight: bold;
+}
+.divTableBody {
+    display: table-row-group;
+}
+/* --------Table-------*/
+/*---------Login-------*/
+.login-form-level1{
+    position:relative;
+    width:100%;
+}
+.login-forminputs-left{
+    margin-left: 10px;
+    margin-top:10px;
+    width:150%px;
+    float:left;
+}
+.login-forminputs-right{
+    margin-left: 10px;
+    margin-top:10px;
+    width:200px;
+    float:right;
+}
+.login-table-info{
+    font-family:Trebuchet MS, Arial, Times New Roman;font-size: 1em;
+}
+.login-table-cells{
+    text-align: left;
+}
+.login-table-cell-remark{
+    text-align: left;
+    font-size: 80%;
+}
+/*--------Login---------*/
+button {
+    border: 1px solid gray;
+    padding: 2px 2px;
+    text-align: center;
+    font-size: 8pt;
+    cursor: pointer;
+}
+.button-index-list{
+    background: #6EA080;
+    border: 0px dotted gray;
+    padding: 2px 4px;
+    text-align: center;
+    font: Bold Small Tahoma;
+    color: lightgoldenrodyellow;
+    cursor: pointer;
+}

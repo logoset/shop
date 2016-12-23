@@ -1,0 +1,66 @@
+<!--  ./views/maket.erb -->
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Магазин: <%= @title %></title>
+    <link rel="stylesheet" type="text/css" href="/site.css">
+</head>
+
+<body>
+
+    <div id="container">
+        <div id="header">
+            <h2 class="maket-header"><a class="maket-a" href="/" >Магазин</a></h2>
+        </div>
+
+        <div id="navigation">
+            <% if session['logged'] && session['logged']['basket'] %>
+                <% unless session['logged']['basket'].empty? %>
+            <div class="maket-nav-basket">
+                <a href="/basket">КОРЗИНА(<%= session['logged']['basket'].values.inject(0){ |sum, item| sum + item } %>)</a>
+            </div>
+                <% end %>
+            <% end %>
+            <% if session['logged'] %>
+            <div class="maket-nav-login"><span class="maket-nav-user"> <%= session['logged']['user'].upcase %> </span><a href="/logout" >выход</a></div>
+            <% else %>
+            <div class="maket-nav-login"><a href="/login" >вход</a></div>
+            <% end %>
+        </div>
+
+        <div id="menu">
+            <div class="maket-menu-container">
+                <div ><b>Раздел</b></div>
+                <div>
+                    <% @db.each do |elem| %>
+                    <div style="margin-top: 5px">
+                        <a href="/category/<%= elem['category']['category_id'] %>"><%= elem['category']['name'] %></a>
+                    </div>
+                    <% end %>
+                </div>
+            </div>
+        </div>
+
+        <div id="content">
+        <%= yield %> <!-- подставляется вместо yield шаблон, который указан в sinatra скрипте. Например,если в скрипте есть директива erb :index, то сюда подставится вместо yield файл index.erb, обработанный процессором erb -->
+        </div>
+
+        <div id="clear">
+
+        </div>
+
+        <div id="footer">
+            <div class="maket-footer-nav"><nav><a href="/">Витрина</a> | <a href="/basket">Корзина</a> |
+            <% unless session['logged'] %>
+            <a href="/login">Вход</a>
+            <% else %>
+            <a href="/logout">Выход</a>
+            <% end %>
+            </nav></div>
+        </div>
+    </div>
+</body>
+
+</html>
+<!--  ./views/maket.erb -->
