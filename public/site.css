@@ -4,7 +4,7 @@ html, body {
     font-family: Trebuchet MS, Arial, Times New Roman;
     font-size: 12px;
     height: 100%;
-    padding: 20px auto;
+    /*padding: 20px auto;*/
 }
 /*--------Main---------*/
 #container {
