@@ -15,11 +15,6 @@ require "sinatra/reloader" if development?
 configure do
   set :port, 7000
   enable :sessions
-  set :environment, :development
-  # set :environment, :production
-  enable :logging
-  set :server, %w[webrick thin mongrel]
-  # disable :run
 end
 
 before do
@@ -174,12 +169,6 @@ get '/trash' do
     session['logged'].delete('basket')
   redirect request.referer||"/"
   end
-end
-
-get "/env" do
-  require 'json'
-  content_type :text
-  return JSON.pretty_generate(request.env)
 end
 
 __END__
