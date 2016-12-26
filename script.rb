@@ -11,14 +11,17 @@ Encoding.default_internal=nil
 require 'sinatra'
 require 'json'
 require "sinatra/reloader" if development?
+require 'open-uri'
 
 configure do
   set :port, 7000
   enable :sessions
+  # set :environment, :production
 end
 
 before do
   @dbpath=Dir.pwd+"/databases"
+  @imgpath=Dir.pwd+"/public"
 
   unless  File.file?("#{@dbpath}/db.json")
     @db=[{"id"=>rand(10000000000000000),"category"=>{"category_id"=>1,"name"=>"растения"},"name"=>"elka","description"=>"какой-то текст","price"=>234,"count"=>60,"image"=>"elka.png"},{"id"=>rand(10000000000000000),"category"=>{"category_id"=>2,"name"=>"электроника"},"name"=>"smartfon","description"=>"двухсимочный","price"=>60234,"count"=>59,"image"=>""},{"id"=>rand(10000000000000000),"category"=>{"category_id"=>3,"name"=>"бытовая техника"},"name"=>"utug","description"=>"home product","price"=>3234,"count"=>79,"image"=>""}]
@@ -140,8 +143,9 @@ get '/purchase' do
               "count"=>value,"datetime"=>time,
               "datetimevisble"=>Time.at(time),
               "cookie_session_id"=>session['session_id'],
-              "payinfo"=>"","user"=>session['logged']['user'],
+              "payinfo"=>"",
               "user_id"=>user['id'],
+              "user"=>session['logged']['user'],
               "contact"=>{
                   "email"=>!user.empty??user['contact']['email']:"",
                   "phone"=>!user.empty??user['contact']['phone']:"",
@@ -171,6 +175,92 @@ get '/trash' do
   end
 end
 
+# ------------------------------------------------------------------------------
+get '/admin' do
+  @product=params[:product] unless params[:product].nil?
+  erb :edit
+end
+
+post "/admin" do
+  if params[:action] == "" && params[:product] !="" && params[:product] then
+    @product=params[:product] unless params[:product].nil?
+    @action=params[:action] unless params[:action].nil?
+    erb :edit
+  end
+  if params[:action] !="" then
+    file_name=""
+    if params[:urlpic] != ""
+      url_regex = Regexp.new("((http?|ftp|file):((//)|(\\\\))+[\w\d:\#@%/;$()~_?\+-=\\\\.&]*)")
+      if params[:urlpic] =~ url_regex then
+        id=params[:id]||params[:product]
+        old_file=@db.select {|item| item['id']== id.to_i }.map{|item| item['image']}[0]
+        if @db.select {|item| item['image']== old_file }.map{|item| item['id']}.uniq.length == 1
+          File.delete(@imgpath+"/"+old_file) if File.file?(@imgpath+"/"+old_file)
+        end
+        uri = URI.parse(params[:urlpic])
+        file_name=('0'..'20').to_a.shuffle.first(15).join+File.extname(uri.path)
+        File.open("#{@imgpath}/#{file_name}","wb") { |f| f.write(uri.open.read)}
+      end
+    else
+      if params[:filepic] != nil
+        if params[:action]=="edit" || params[:action]=="delproduct"
+          id=params[:id]||params[:product]
+          old_file=@db.select {|item| item['id']== id.to_i }.map{|item| item['image']}[0]
+         if @db.select {|item| item['image']== old_file }.map{|item| item['id']}.uniq.length == 1
+            File.delete(@imgpath+"/"+old_file) if File.file?(@imgpath+"/"+old_file)
+          end
+        end
+        file_name=('0'..'20').to_a.shuffle.first(15).join+"."+params[:filepic][:type].split('/')[1]
+        File.open("#{@imgpath}/#{file_name}","wb") { |f| f.write(params[:filepic][:tempfile].read)}
+      end
+    end
+
+    if params[:action]=="add"
+      catname=@db.map {|item| item['category'] }.uniq.select {|item| item['category_id']==params[:category].to_i}[0]['name']
+      @db.push({
+            "id"=>rand(10000000000000000),
+            "category"=>{
+                "category_id"=>params[:newcat]!=""?rand(10000000000000000):params[:category].to_i,
+                "name"=>params[:newcat]!=""?params[:newcat]:catname},
+            "name"=>params[:name],
+            "description"=>params[:desc],
+            "count"=>params[:count].to_i,
+            "price"=>params[:price].to_f,
+            "image"=>file_name
+      })
+      File.open("#{@dbpath}/db.json",'w:UTF-8') {|f| f.write(JSON.pretty_generate(@db))}
+    end
+    if params[:action]=="edit"
+      i=@db.index{|item| item['id']==params[:id].to_i}
+      if params[:newcat]!=""
+        @db[i]['category']['category_id']=rand(10000000000000000)
+        @db[i]['category']['name']=params[:newcat]
+      else
+        @db[i]['category']['category_id']=params[:category].to_i
+        @db[i]['category']['name']=@db.map {|item| item['category'] }.uniq.select {|item| item['category_id']==params[:category].to_i}[0]['name']
+      end
+      @db[i]['name']=params[:name]
+      @db[i]['description']=params[:desc]
+      @db[i]['count']=params[:count].to_i
+      @db[i]['price']=params[:price].to_f
+      @db[i]['image']=file_name
+      File.open("#{@dbpath}/db.json",'w:UTF-8') {|f| f.write(JSON.pretty_generate(@db))}
+      @product=params[:id]
+    end
+    if params[:action]=="delproduct"
+      id=params[:id]||params[:product]
+      old_file=@db.select {|item| item['id']== id.to_i }.map{|item| item['image']}[0]
+
+      if @db.select {|item| item['image']== old_file }.map{|item| item['id']}.uniq.length == 1
+        File.delete(@imgpath+"/"+old_file) if File.file?(@imgpath+"/"+old_file)
+      end
+      @db.delete_if{|item| item['id']==params[:product].to_i}
+      File.open("#{@dbpath}/db.json",'w:UTF-8') {|f| f.write(JSON.pretty_generate(@db))}
+    end
+  end
+  erb :edit
+end
+# ------------------------------------------------------------------------------
 __END__
 
 @@ msg

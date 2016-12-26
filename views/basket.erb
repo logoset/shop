@@ -3,6 +3,7 @@
   <div class="divTable">
     <div class="divTableBody">
       <div class="divTableRow">
+        <div class="divTableHead">ID</div>
         <div class="divTableHead">наименование</div>
         <div class="divTableHead">цена</div>
         <div class="divTableHead">количество</div>
@@ -10,11 +11,11 @@
       </div>
       <% unless session['logged']['basket'].nil? %>
         <% session['logged']['basket'].each_key do |key| %>
-          <% prod=@db.select {|item| item['id'].to_s==key.to_s} %>
-          <% prod.each do |elem| %>
+          <% @db.select {|item| item['id'].to_s==key.to_s}.uniq.each do |elem| %>
       <div class="divTableRow">
+        <div class="divTableCell"><%= elem['id'] %></div>
         <div class="divTableCell"><%= elem['name'] %></div>
-       <div class="divTableCell"><%= elem['price'] %>&nbsp;<%= @currency %></div>
+        <div class="divTableCell"><%= elem['price'] %>&nbsp;<%= @currency %></div>
         <div class="divTableCell"><%= session['logged']['basket']["#{key}"]  %></div>
         <div class="divTableCell"><%= session['logged']['basket']["#{key}"].to_i * elem['price'].to_f %>&nbsp;<%= @currency %></div>
       </div>

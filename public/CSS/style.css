@@ -38,7 +38,8 @@ html, body {
 }
 
 #content {
-    background: #d2d0d2;
+    /*background: #A5BFA5;*/
+    background: lightgoldenrodyellow;
     float: right;
     width: 750px;
     /*height: 465px;*/
@@ -101,9 +102,10 @@ html, body {
 /*--------Layout-------*/
 /*--------Index--------*/
 .tovar{
-    /*border: solid 1px darkturquoise;*/
-    border: solid 1px gray;
-    background: #99CC99;
+    border-top: 1px dotted gray;
+    border-bottom: 1px dotted gray;
+    /*background: #99CC99;*/
+    background-color: rgba(153,204,153,0.5);
     margin-left: 10px;
     margin-right: 10px;
     margin-bottom: 5px;
@@ -114,17 +116,17 @@ html, body {
 }
 
 .index-tovar-list-item{
+    padding-top: 5px;
     padding-left: 5px;
-    padding-right: 5px;
-    padding-bottom: 5px;
+    padding-right: 3px;
 }
 .index-tovar-list-item-right{
     position: absolute;
-    right: 30px;
+    right: 20px;
     bottom: 0px;
     padding-left: 5px;
     padding-right: 5px;
-    padding-bottom: 5px;"
+    padding-bottom: 5px;
 }
 
 .index-tovar-list-nametxt{
@@ -142,25 +144,35 @@ html, body {
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
-    height: 5%; text-align: center;
+    height: 5%;
+    text-align: center;
     font-weight: bold;
     font-size: 12pt;
     background: #DFE9C1;
+    /*display: table-cell;*/
+    vertical-align: middle;
+    line-height: 1.7em;
 }
 .info-header-text{
     color: #0A5F04;
 }
 .info-container{
+  width: 100%;
+  height: 100%;
+  background: lightgoldenrodyellow;
+  overflow: auto;
+}
+.info-container-for-leftmiddle{
     position: relative;
     width: 100%;
-    height: 95%;
-    background: lightgoldenrodyellow
 }
 .info-container-left{
     padding-top: 5px;
     padding-left: 5px;
     width: 33%;
-    float: left;"
+    height: 250px;
+    float: left;
+    background: lightgoldenrodyellow;
 }
 /*---Info-->Picture----*/
 .picture-box-outer{
@@ -204,51 +216,50 @@ html, body {
  /*---Info-->Picture----*/
 
 .info-container-middle{
-    width: 33%;
-    height: 100%;
-    float: left;
+    /*float: left;*/
+    /*margin-left: 33%; ---> value on margin-left see style on element and for  width property also*/
+    padding-bottom: 20px;
 }
 .info-middle-name{
     padding-top: 7px;
     padding-left: 7px;
-    padding-right: 7px
+    padding-right: 7px;
 }
 .info-maddle-name-head{
     font-weight: bold;
     font-size: 11pt;
 }
 .info-middle-nametxt{
-    font-weight: bold;
-    font-size: 11pt;
+    /*font-weight: bold;*/
+    /*font-size: 11pt;*/
     color: maroon;
     padding-left: 5px;
     padding-right: 5px;
     text-align: justify;
-    /*border: 1px dotted #fc0;*/
+    font: bold small tahoma;
 }
 .info-middle-elem{
     padding: 7px;
 }
 .info-middle-button-container{
-    position: relative
+    position: relative;
 }
 .info-middle-battonadd{
     float:left;
-    margin-right: 10px
+    margin-right: 10px;
 }
 .info-middle-battonbasket{
     float:left;
-    margin-left: 10px
+    margin-left: 10px;
 }
 .info-count-minus{
     font-weight: bold;
     color: red;
 }
-.info-container-right{
-    overflow: auto ;
-    height: 100%;
-    float: left;
-    /* see element style addon width: 33% or 65%*/
+.info-container-bottom{
+    overflow: auto;
+    width: 100%;
+    border-top: 1px dotted darkgrey;
 }
 .info-right-descript{
     font-weight: bold;
@@ -264,7 +275,7 @@ html, body {
 /*--------Info-------*/
 /*--------Basket-------*/
 .basket-container{
-    style="margin: 10px;
+    margin: 10px;
 }
 .basket-buttons{
     width: 100%;
@@ -289,11 +300,13 @@ html, body {
     display: table-cell;
     padding: 3px 10px;
     font-weight: bold;
+    text-align: center;
 }
 .divTableCell {
     border: 1px solid #999999;
     display: table-cell;
     padding: 3px 10px;
+    vertical-align: middle;
 }
 .divTableHeading {
     background-color: #EEE;
@@ -346,7 +359,6 @@ button {
 }
 .button-index-list{
     background: #6EA080;
-    border: 0px dotted gray;
     padding: 2px 4px;
     text-align: center;
     font: Bold Small Tahoma;

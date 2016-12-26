@@ -3,8 +3,8 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Магазин: <%= @title %></title>
-    <link rel="stylesheet" type="text/css" href="/site.css">
+    <title>Магазин <%= @title %></title>
+    <link rel="stylesheet" type="text/css" href="/CSS/style.css">
 </head>
 
 <body>
@@ -33,9 +33,11 @@
             <div class="maket-menu-container">
                 <div ><b>Раздел</b></div>
                 <div>
-                    <% @db.each do |elem| %>
+                    <!-- выборка хеш-массивов категорий с уникальными значениями, исходя из стуктуры хранения данных -->
+                    <!--  на выходе массив одномерный, а в нем хеши [{k=>v},{k=>v}...] -->
+                    <% @db.map {|item| item['category'] }.uniq.each do |elem| %>
                     <div style="margin-top: 5px">
-                        <a href="/category/<%= elem['category']['category_id'] %>"><%= elem['category']['name'] %></a>
+                        <a href="/category/<%= elem['category_id'] %>"><%= elem['name'] %></a>
                     </div>
                     <% end %>
                 </div>
@@ -52,10 +54,12 @@
 
         <div id="footer">
             <div class="maket-footer-nav"><nav><a href="/">Витрина</a> | <a href="/basket">Корзина</a> |
-            <% unless session['logged'] %>
-            <a href="/login">Вход</a>
-            <% else %>
-            <a href="/logout">Выход</a>
+            <%= unless session['logged'] then "<a href='/login'>Вход</a>" else "<a href='/logout'>Выход</a>" end %>
+            <% if session['logged']  %>
+                <% File.file?("#{@dbpath}/users.json")? user= JSON.parse(File.open("#{@dbpath}/users.json",'r:UTF-8',&:read)).select {|elem| elem['login']==session['logged']['user']}:user=[] %>
+                <% if user.length==1 && user[0]['role'] == "administrator" %>
+             |<a href="/admin">Admin</a>
+                <% end %>
             <% end %>
             </nav></div>
         </div>

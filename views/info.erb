@@ -1,93 +1,91 @@
 <!--  ./views/info.erb -->
-
-<div class="info-header">
-    <%= @content_header %>:
-    <span class="info-header-text">
-        <%= @products[0]['name'] unless @products.nil?  %>
-    </span>
-</div>
-<% @products.each do |elem| %>
 <div class="info-container">
-        <% unless elem['image'] == "" %>
-    <div class="info-container-left">
-         <div>
-                <% if File.file?("#{Dir.pwd}/public/#{elem['image']}") %>
-                <div class="picture-box-outer">
-                    <div class="picture-box-middle-flex">
-                        <script>
-                        function setPhotoSize() {
-                         var img = document.getElementById('picture');
-                         var width = document.getElementById("picture").naturalWidth;
-                         var height = document.getElementById("picture").naturalHeight;
-                         if ((width >= height)) {
-                            document.getElementById('picture').style.width="100%";
-                            document.getElementById('picture').style.height="auto";
-                         } else {
-                            document.getElementById('picture').style.width="auto";
-                            document.getElementById('picture').style.height="100%";
-                         }
-                        }
-                        </script>
-                        <!-- ***************** IMAGE TAG ******************* -->
-                            <img id="picture" class="picture-box" src="/<%= elem['image'] %>" alt="<%= elem['name'] %>">
-                        <!-- ***************** IMAGE TAG ******************* -->
-                        <script>
-                        var imgtag = document.getElementById("picture");
-                        // imgtag.title = selectedFile.name;
-                        imgtag.onload = function() {
-                            setPhotoSize();
-                        }
-                        </script>
-                    </div>
-                </div>
-                <% end %>
-        </div>
-    </div>
-    <% end %>
-    <div class="info-container-middle">
-        <div class="info-middle-name">
-           <span class="info-maddle-name-head" >Название:</span><div class="info-middle-nametxt"><%= elem['name'] %></div>
-        </div>
-        <div class="info-middle-elem">
-            <span>Раздел-></span><span><a class="info-a-category" href="/category/<%= elem['category']['category_id'] %>"><%= elem['category']['name'] %></a></span>
-        </div>
+  <div class="info-header">
+      <span><%= @content_header %>:</span>
+      <span class="info-header-text"><%= @products[0]['name'] unless @products.nil?  %></span>
+  </div>
+  <% @products.uniq.each do |elem| %>
+  <div class="info-container-for-leftmiddle">
+      <% unless elem['image'] == "" %>
+      <div class="info-container-left">
+           <div>
+                  <% if File.file?("#{@imgpath}/#{elem['image']}") %>
+                  <div class="picture-box-outer">
+                      <div class="picture-box-middle-flex">
+                          <script>
+                          function setPhotoSize() {
+                           if ((document.getElementById("picture").naturalWidth >= document.getElementById("picture").naturalHeight)) {
+                              document.getElementById('picture').style.width="100%";
+                              document.getElementById('picture').style.height="auto";
+                           } else {
+                              document.getElementById('picture').style.width="auto";
+                              document.getElementById('picture').style.height="100%";
+                           }
+                          }
+                          </script>
+                          <!-- ***************** IMAGE TAG ******************* -->
+                              <img id="picture" class="picture-box" src="/<%= elem['image'] %>" alt="<%= elem['name'] %>">
+                          <!-- ***************** IMAGE TAG ******************* -->
+                          <script>
+                          var imgtag = document.getElementById("picture");
+                          // imgtag.title = selectedFile.name;
+                          imgtag.onload = function() {
+                              setPhotoSize();
+                          }
+                          </script>
+                      </div>
+                  </div>
+                  <% end %>
+          </div>
+      </div>
+      <% end %>
+      <div class="info-container-middle" style="margin-left: <%= elem['image'] == "" ? '0' : '33%'  %>;width: <%= elem['image'] == "" ? '100%' : '67%'  %>;" >
+          <div class="info-middle-name">
+             <span class="info-maddle-name-head" >Название:</span><div class="info-middle-nametxt"><%= elem['name'] %></div>
+          </div>
+          <div class="info-middle-elem">
+              <span>Раздел-></span><span><a class="info-a-category" href="/category/<%= elem['category']['category_id'] %>"><%= elem['category']['name'] %></a></span>
+          </div>
 
-        <div class="info-middle-elem">
-            Цена: <b><%= elem['price'] %>&nbsp;<%= @currency %></b>
-        </div>
-        <div class="info-middle-elem">
-            Количество: <b><%= elem['count'] %></b>
-            <% if session['logged'] %>
-                <% if session['logged']['basket'] && session['logged']['basket']["#{elem['id']}"] %>
-                    <span class="info-count-minus">(-<%= session['logged']['basket']["#{elem['id']}"] %>)</span>
-                <% end %>
-            <% end %>
-        </div>
-        <div class="info-middle-elem">
-            <div class="info-middle-button-container">
-                <div class="info-middle-battonadd">
-                    <% if @db.select {|elem| params[:id]==elem['id'].to_s}[0]['count'] > 0 %>
-                    <a href="/basket/<%= elem['id'] %>"><button>добавить в корзину</button></a>
-                    <% else %>
-                    <button disabled > добавить в корзину</button>
-                    <% end %>
-                </div>
-                <div class="info-middle-battonbasket">
-                    <% if session['logged'] %>
-                        <% if session['logged']['basket'] %>
-                    <a href="/basket"><button>корзина</button></a>
-                        <% end %>
-                    <% end %>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div style="width: <%= elem['image'] == "" ? '65%' : '33%'  %>;" class="info-container-right">
-        <div class="info-middle-elem">
-            <div class="info-right-descript">Описание:</div>
-            <div class="info-right-descripttxt"><%= elem['description'].split(%r{\n\r*}).map{|str| "<p>#{str}</p>" }.join  %></div>
-        </div>
-    </div>
+          <div class="info-middle-elem">
+              Цена: <b><%= elem['price'] %>&nbsp;<%= @currency %></b>
+          </div>
+          <div class="info-middle-elem">
+              Количество: <b><%= elem['count'] %></b>
+              <% if session['logged'] %>
+                  <% if session['logged']['basket'] && session['logged']['basket']["#{elem['id']}"] %>
+                      <span class="info-count-minus">(-<%= session['logged']['basket']["#{elem['id']}"] %>)</span>
+                  <% end %>
+              <% end %>
+          </div>
+          <div class="info-middle-elem">
+              <div class="info-middle-button-container">
+                  <div class="info-middle-battonadd">
+                      <% if @db.select {|elem| params[:id]==elem['id'].to_s}[0]['count'] > 0 %>
+                      <a href="/basket/<%= elem['id'] %>"><button>добавить в корзину</button></a>
+                      <% else %>
+                      <button disabled > добавить в корзину</button>
+                      <% end %>
+                  </div>
+                  <div class="info-middle-battonbasket">
+                      <% if session['logged'] %>
+                          <% if session['logged']['basket'] %>
+                      <a href="/basket"><button>корзина</button></a>
+                          <% end %>
+                      <% end %>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <!-- <div style="clear">&nbsp;</div> -->
+  </div>
+  <div class="info-container-bottom">
+      <div class="info-middle-elem">
+          <div class="info-right-descript">Описание:</div>
+          <div class="info-right-descripttxt"><%= elem['description'].split(%r{\n\r*}).map{|str| "<p>#{str}</p>" }.join  %></div>
+      </div>
+  </div>
+  <% end %>
 </div>
-<% end %>
+
 <!--  ./views/info.erb -->
