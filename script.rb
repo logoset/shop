@@ -199,30 +199,21 @@ post "/admin" do
   end
   if params[:action] !="" && params[:name]!="" then
     file_name=""
-    if params[:urlpic] != ""
+    if  params[:urlpic] != "" || params[:filepic] !=nil
+      uploaded_file=""
+      random_number=('0'..'20').to_a.shuffle.first(15).join
+      id=params[:id]||params[:product]
+      old_file_name=@db.select {|item| item['id']== id.to_i }.map{|item| item['image']}[0]||""
       url_regex = Regexp.new("((http?|ftp|file):((//)|(\\\\))+[\w\d:\#@%/;$()~_?\+-=\\\\.&]*)")
-      if params[:urlpic] =~ url_regex then
-        id=params[:id]||params[:product]
-        old_file=@db.select {|item| item['id']== id.to_i }.map{|item| item['image']}[0]
-        if @db.select {|item| item['image']== old_file }.map{|item| item['id']}.uniq.length == 1
-          File.delete(@imgpath+"/"+old_file) if File.file?(@imgpath+"/"+old_file)
-        end
-        uri = URI.parse(params[:urlpic])
-        file_name=('0'..'20').to_a.shuffle.first(15).join+File.extname(uri.path)
-        File.open("#{@imgpath}/#{file_name}","wb") { |f| f.write(uri.open.read)}
-      end
-    else
-      if params[:filepic] != nil
-        if params[:action]=="edit" || params[:action]=="delproduct"
-          id=params[:id]||params[:product]
-          old_file=@db.select {|item| item['id']== id.to_i }.map{|item| item['image']}[0]
-         if @db.select {|item| item['image']== old_file }.map{|item| item['id']}.uniq.length == 1
-            File.delete(@imgpath+"/"+old_file) if File.file?(@imgpath+"/"+old_file)
-         end
-        end
-        file_name=('0'..'20').to_a.shuffle.first(15).join+"."+params[:filepic][:type].split('/')[1]
-        File.open("#{@imgpath}/#{file_name}","wb") { |f| f.write(params[:filepic][:tempfile].read)}
-      end
+      uri = URI.parse(params[:urlpic]) if params[:urlpic] != "" && params[:urlpic] =~ url_regex
+      file_name=random_number+"."+params[:filepic][:type].split('/')[1] if params[:filepic] != nil
+      file_name=random_number+File.extname(uri.path) if params[:urlpic] != "" && uri
+      old_file_exist=File.file?(@imgpath+"/"+old_file_name)
+      new_file_exist=File.file?(@imgpath+"/"+file_name)
+      uploaded_file=params[:filepic][:tempfile] if params[:filepic] != nil
+      uploaded_file=uri.open if params[:urlpic] != "" && uri
+      File.delete(@imgpath+"/"+old_file_name)  if old_file_exist && ['edit','delproduct'].include?(params[:action])
+      File.open("#{@imgpath}/#{file_name}","wb") { |f| f.write(uploaded_file.read)} if !new_file_exist && ['edit','add'].include?(params[:action])
     end
 
     if params[:action]=="add"
@@ -239,7 +230,9 @@ post "/admin" do
             "image"=>file_name
       })
       File.open("#{@dbpath}/db.json",'w:UTF-8') {|f| f.write(JSON.pretty_generate(@db))}
+      @product=@db[-1]['id']
     end
+
     if params[:action]=="edit"
       i=@db.index{|item| item['id']==params[:id].to_i}
       if params[:newcat]!=""
@@ -253,17 +246,12 @@ post "/admin" do
       @db[i]['description']=params[:desc]
       @db[i]['count']=params[:count].to_i
       @db[i]['price']=params[:price].to_f
-      @db[i]['image']=file_name
+      @db[i]['image']=file_name if file_name!=nil && file_name!=""
       File.open("#{@dbpath}/db.json",'w:UTF-8') {|f| f.write(JSON.pretty_generate(@db))}
       @product=params[:id]
     end
     if params[:action]=="delproduct"
       id=params[:id]||params[:product]
-      old_file=@db.select {|item| item['id']== id.to_i }.map{|item| item['image']}[0]
-
-      if @db.select {|item| item['image']== old_file }.map{|item| item['id']}.uniq.length == 1
-        File.delete(@imgpath+"/"+old_file) if File.file?(@imgpath+"/"+old_file)
-      end
       @db.delete_if{|item| item['id']==params[:product].to_i}
       File.open("#{@dbpath}/db.json",'w:UTF-8') {|f| f.write(JSON.pretty_generate(@db))}
     end

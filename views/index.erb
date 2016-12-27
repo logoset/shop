@@ -5,12 +5,14 @@
     <div class="index-tovar-list" onClick="location.href='/elem/<%= elem['id'] %>'" >
             <% if session['logged'] && session['logged']['user'] == "admin" %>
             <div class="index-edit-container">
-                <span class="index-edit-span">
-                    <img src="/shest.png" width="13px" height=13px alt="">
-                </span>
-                <span class="index-edit-span-right">
-                    <a class="index-edit-text-a" href="/admin/<%= elem['id'] %>">EDIT</a>
-                </span>
+                <a class="index-edit-text-a" href="/admin/<%= elem['id'] %>">
+                    <span class="index-edit-span">
+                        <img src="/shest.png" width="13px" height=13px alt="">
+                    </span>
+                    <span class="index-edit-span-right">
+                        EDIT
+                    </span>
+                </a>
             </div>
             <% end %>
 
