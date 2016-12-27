@@ -128,11 +128,19 @@ get '/purchase' do
     File.file?("#{@dbpath}/users.json")? @users||= JSON.parse(File.open("#{@dbpath}/users.json",'r:UTF-8',&:read)) :  @users||=[]
     i=0
     time=Time.now.to_i
+      # session['logged']['basket'].each do |key,value|
+      #   index=@db.index{|item| item['id'].to_s == key.to_s }
+      #   if @db[index]['count'] - value >0
+      #     @db[i]['count']-=value
+      #     user=@users.select {|elem| elem['login'] == session['logged']['user']}[0]
+      #     @purchases.push()
+      #   end
+      # end
     while i <= @db.length-1
       session['logged']['basket'].each do |key,value|
         if @db[i]['id'].to_s == key.to_s && @db[i]['count']-value >= 0
           @db[i]['count']-=value
-          # есть нюанс, что в базе, пользоаптелей с одинаковым именем может быть несколько, тогда нужно в сессиях хранить еще и user_id
+          # есть нюанс, что в базе, пользователей с одинаковым именем может быть несколько, тогда нужно в сессиях хранить еще и user_id
           # данная выборка из массива пользователей  исходит из того, что логин уникален в базе
           user=@users.select {|elem| elem['login'] == session['logged']['user']}[0]
           @purchases.push(
@@ -176,9 +184,11 @@ get '/trash' do
 end
 
 # ------------------------------------------------------------------------------
-get '/admin' do
-  @product=params[:product] unless params[:product].nil?
-  erb :edit
+["/admin","/admin/:product"].each do |path|
+  get path do
+    @product=params[:product] unless params[:product].nil?
+    erb :edit
+  end
 end
 
 post "/admin" do
@@ -187,7 +197,7 @@ post "/admin" do
     @action=params[:action] unless params[:action].nil?
     erb :edit
   end
-  if params[:action] !="" then
+  if params[:action] !="" && params[:name]!="" then
     file_name=""
     if params[:urlpic] != ""
       url_regex = Regexp.new("((http?|ftp|file):((//)|(\\\\))+[\w\d:\#@%/;$()~_?\+-=\\\\.&]*)")
@@ -208,7 +218,7 @@ post "/admin" do
           old_file=@db.select {|item| item['id']== id.to_i }.map{|item| item['image']}[0]
          if @db.select {|item| item['image']== old_file }.map{|item| item['id']}.uniq.length == 1
             File.delete(@imgpath+"/"+old_file) if File.file?(@imgpath+"/"+old_file)
-          end
+         end
         end
         file_name=('0'..'20').to_a.shuffle.first(15).join+"."+params[:filepic][:type].split('/')[1]
         File.open("#{@imgpath}/#{file_name}","wb") { |f| f.write(params[:filepic][:tempfile].read)}
@@ -266,7 +276,13 @@ __END__
 @@ msg
 <table width='100%' height='100%'>
   <tr align='center'>
-    <td align='center'><%= @msg %><br><a href='<%= @link %>'>назад</a></td>
+    <td align='center'>
+      <div class="messages-block">
+        <%= @msg %>
+        <br>
+        <a href='<%= @link %>'><button class="button-index-list">назад</button></a>
+      </div>
+    </td>
   </tr>
 </table>
 

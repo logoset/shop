@@ -1,6 +1,6 @@
-<!--  ./views/maket.erb -->
+<!doctype html>
 <html>
-
+<!--  ./views/maket.erb -->
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Магазин <%= @title %></title>
@@ -10,34 +10,34 @@
 <body>
 
     <div id="container">
-        <div id="header">
-            <h2 class="maket-header"><a class="maket-a" href="/" >Магазин</a></h2>
+        <div id="header" onclick="location.href='/'">
+            <a class="maket-a" href="/" ><div class="maket-header-text">Магазин</div></a>
         </div>
 
         <div id="navigation">
             <% if session['logged'] && session['logged']['basket'] %>
                 <% unless session['logged']['basket'].empty? %>
             <div class="maket-nav-basket">
-                <a href="/basket">КОРЗИНА(<%= session['logged']['basket'].values.inject(0){ |sum, item| sum + item } %>)</a>
+                <a class="maket-nav-login-text" href="/basket">КОРЗИНА(<%= session['logged']['basket'].values.inject(0){ |sum, item| sum + item } %>)</a>
             </div>
                 <% end %>
             <% end %>
             <% if session['logged'] %>
-            <div class="maket-nav-login"><span class="maket-nav-user"> <%= session['logged']['user'].upcase %> </span><a href="/logout" >выход</a></div>
+            <div class="maket-nav-login"><span class="maket-nav-user"> <%= session['logged']['user'].upcase %> </span><a class="maket-nav-login-text" href="/logout" >выход</a></div>
             <% else %>
-            <div class="maket-nav-login"><a href="/login" >вход</a></div>
+            <div class="maket-nav-login"><a class="maket-nav-login-text" href="/login" >вход</a></div>
             <% end %>
         </div>
 
         <div id="menu">
             <div class="maket-menu-container">
-                <div ><b>Раздел</b></div>
+                <span class="maket-menu-header"><a href="/">Раздел</a></span>
                 <div>
-                    <!-- выборка хеш-массивов категорий с уникальными значениями, исходя из стуктуры хранения данных -->
-                    <!--  на выходе массив одномерный, а в нем хеши [{k=>v},{k=>v}...] -->
+                    <% #выборка хеш-массивов категорий с уникальными значениями, исходя из стуктуры хранения данных %>
+                    <%  #на выходе массив одномерный, а в нем хеши [{k=>v},{k=>v}...] %>
                     <% @db.map {|item| item['category'] }.uniq.each do |elem| %>
-                    <div style="margin-top: 5px">
-                        <a href="/category/<%= elem['category_id'] %>"><%= elem['name'] %></a>
+                    <div class="maket-category-list">
+                        <a class="info-a-category" href="/category/<%= elem['category_id'] %>"><%= elem['name'] %></a>
                     </div>
                     <% end %>
                 </div>
@@ -45,7 +45,7 @@
         </div>
 
         <div id="content">
-        <%= yield %> <!-- подставляется вместо yield шаблон, который указан в sinatra скрипте. Например,если в скрипте есть директива erb :index, то сюда подставится вместо yield файл index.erb, обработанный процессором erb -->
+        <%= yield %> <% #подставляется вместо yield шаблон, который указан в sinatra скрипте. Например,если в скрипте есть директива erb :index, то сюда подставится вместо yield файл index.erb, обработанный процессором erb %>
         </div>
 
         <div id="clear">
@@ -53,12 +53,12 @@
         </div>
 
         <div id="footer">
-            <div class="maket-footer-nav"><nav><a href="/">Витрина</a> | <a href="/basket">Корзина</a> |
-            <%= unless session['logged'] then "<a href='/login'>Вход</a>" else "<a href='/logout'>Выход</a>" end %>
+            <div class="maket-footer-nav"><nav><a class="maket-nav-login-text" href="/">Витрина</a> | <a class="maket-nav-login-text" href="/basket">Корзина</a> |
+            <%= unless session['logged'] then "<a class='maket-nav-login-text' href='/login'>Вход</a>" else "<a class='maket-nav-login-text' href='/logout'>Выход</a>" end %>
             <% if session['logged']  %>
                 <% File.file?("#{@dbpath}/users.json")? user= JSON.parse(File.open("#{@dbpath}/users.json",'r:UTF-8',&:read)).select {|elem| elem['login']==session['logged']['user']}:user=[] %>
                 <% if user.length==1 && user[0]['role'] == "administrator" %>
-             |<a href="/admin">Admin</a>
+             |<a class="maket-nav-login-text" href="/admin">Admin</a>
                 <% end %>
             <% end %>
             </nav></div>

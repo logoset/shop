@@ -5,6 +5,8 @@ html, body {
     font-size: 12px;
     height: 100%;
     /*padding: 20px auto;*/
+    margin:0;
+    padding:0;
 }
 /*--------Main---------*/
 #container {
@@ -20,6 +22,7 @@ html, body {
     background: #66CCCC;
     height: 100px;
     width: 900px;
+    cursor:pointer;
 }
 
 #navigation {
@@ -67,12 +70,35 @@ html, body {
 }
 /*--------Common-------*/
 /*--------Layout-------*/
-.maket-header{
+.maket-header-text{
     text-align: center;
-    padding-top: 45px;
+    padding-top: 35px;
+    font-weight: bold;
+    font-size: 20pt;
 }
-.maket-a, .index-a, .info-a-category{
+.maket-a {
     text-decoration: none;
+    color: lightyellow;
+}
+.maket-menu-header{
+    font-weight: bold;
+    margin-left: 5px;
+    color: darkblue;
+    text-decoration: none;
+}
+
+.maket-menu-container{
+    position: relative;
+    width: 150px;
+}
+.maket-category-list{
+    margin: 3px 5px;
+    font-weight: bold;
+    font-size: 103%;
+    padding-right: 2px;
+    padding-left: 2px;
+    color: #6EA080;
+    background-color: rgba(250,250,210,0.5);
 }
 .maket-nav-basket{
     position: absolute;
@@ -83,17 +109,17 @@ html, body {
     position:absolute;
     right:5px;
 }
+.maket-nav-login-text{
+    font-weight: bold;
+    text-decoration:  none;
+    color: darkslateblue;
+}
 .maket-nav-user{
     font-weight: bold;
     padding-top: 4px;
     padding-right: 10px;
     display: inline-block;
-}
-.maket-menu-container{
-    position: relative;
-    width: 100%;
-    height: 100%;
-    margin: 10px;
+    color:  blue;
 }
 .maket-footer-nav{
     padding-top: 10px;
@@ -110,7 +136,29 @@ html, body {
     margin-right: 10px;
     margin-bottom: 5px;
 }
-
+.index-edit-container{
+    float: right;
+    width: 50px;
+    position: relative;
+    padding-left: 5px;
+    padding-right: 5px;
+    text-align:center;
+}
+.index-edit-span-left{
+    margin-right: 2px;
+}
+.index-edit-span-right{
+    margin-right: 2px;
+}
+.index-edit-text-a{
+    text-decoration: none;
+    color: green;
+    font-weight: bold;
+}
+.index-a {
+    text-decoration: none;
+    color: green;
+}
 .index-tovar-list{
     cursor:pointer;
 }
@@ -229,6 +277,13 @@ html, body {
     font-weight: bold;
     font-size: 11pt;
 }
+
+.info-a-category{
+    text-decoration: none;
+    font-weight: bold;
+    color: green;
+}
+
 .info-middle-nametxt{
     /*font-weight: bold;*/
     /*font-size: 11pt;*/
@@ -350,6 +405,13 @@ html, body {
     font-size: 80%;
 }
 /*--------Login---------*/
+.messages-block{
+    padding: 10px;
+    margin: 25% 8%;
+    border-radius: 7px;
+    border: 3px solid gray;
+    background: #99CC99;
+}
 button {
     border: 1px solid gray;
     padding: 2px 2px;
@@ -364,4 +426,7 @@ button {
     font: Bold Small Tahoma;
     color: lightgoldenrodyellow;
     cursor: pointer;
+}
+a {
+    text-decoration: none;
 }
