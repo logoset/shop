@@ -1,6 +1,4 @@
 <div style="margin: auto; width: 90%">
-<%= @vars %>
-<%= @control %>
   <%= if @product && @product!="" then "<h3>Изменение товара:</h3>" else "<h3>Добавление нового товара:</h3>" end %>
   <form id="select" action="/admin" method="post">
   <fieldset>
