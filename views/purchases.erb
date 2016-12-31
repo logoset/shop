@@ -1,0 +1,56 @@
+<div class="center">
+  <div style="margin: 20px;">
+    <table border=1 cellspacing="0">
+      <caption><b>Таблица всех совершенных покупок</b></caption>
+      <thead>
+        <tr bgcolor="darkkhaki">
+          <th>ID</th>
+          <th>Имя товара</th>
+          <th>Категория</th>
+          <th>Цена</th>
+          <th>Кол-во</th>
+          <th>Сумма</th>
+          <th>Кто купил</th>
+          <th>Дата покупки</th>
+        </tr>
+      </thead>
+      <tbody>
+      <% if @purchases.length > 0 %>
+      <%  olddate=@purchases[0]['datetime']; color='#cccc99' %>
+      <% else %>
+      <%  olddate=Time.now.to_i %>
+      <% end %>
+      <% sum=0;sumcount=0;count=0 %>
+      <% @purchases.each do |item| %>
+        <% i=@db.index{|elem| elem['id'].to_i==item['product_id'].to_i} %>
+        <% next if i.nil? %>
+        <% if item['datetime'] != olddate %>
+          <% if color=="#cccc99" %>
+            <% color="darkseagreen" %>
+          <% else %>
+            <% color="#cccc99" %>
+          <% end %>
+        <% end %>
+        <tr bgcolor="<%= color %>">
+          <td><%= item['product_id'] %></td>
+          <td><b><%= @db[i]['name'] unless i.nil? %></b></td>
+          <td><%= @db[i]['category']['name'] unless i.nil? %></td>
+          <td><%= @db[i]['price'] unless i.nil? %></td>
+          <td align="center"><%= item['count'] %></td>
+          <td><%= item['count']*@db[i]['price'] unless i.nil? %></td>
+          <td><%= item['user'] %></td>
+          <td><%= Time.at(item['datetime']).strftime("%T  %d.%m.%Y") %></td>
+        </tr>
+        <% sum+=@db[i]['price']unless i.nil?; sumcount+=item['count']*@db[i]['price'] unless i.nil?;count+=item['count'] %>
+        <% olddate=item['datetime'] %>
+      <% end %>
+        <tr bgcolor="#cccc99">
+          <th colspan="3" align="right">Итого сумма:</th><th><%= sum %></th><th><%= count %></th><th><%= sumcount %></th><th colspan="3"></th>
+        </tr>
+      </tbody>
+    </table>
+    <div style="text-align: center; margin-top: 20px;">
+      <a href="/admin"><button>Назад</button></a>
+    </div>
+  </div>
+</div>

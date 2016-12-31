@@ -61,7 +61,7 @@
           <div class="info-middle-elem">
               <div class="info-middle-button-container">
                   <div class="info-middle-battonadd">
-                      <% if @db.select {|elem| params[:id]==elem['id'].to_s}[0]['count'] > 0 %>
+                      <% if @db.select {|elem| params[:id]==elem['id'].to_s}[0]['count'] > 0 && @db.select {|elem| params[:id]==elem['id'].to_s}[0]['visible']=="on"  %>
                       <a href="/basket/<%= elem['id'] %>"><button>добавить в корзину</button></a>
                       <% else %>
                       <button disabled > добавить в корзину</button>

@@ -1,0 +1,45 @@
+<h3>Управление пользователями</h3>
+<div class="basket-container" style="font-size: 90%; margin:0;">
+  <div class="divTable">
+    <div class="divTableBody">
+      <div class="divTableRow">
+        <div class="divTableHeadUsers">ID</div>
+        <div class="divTableHeadUsers">login</div>
+        <div class="divTableHeadUsers">password</div>
+        <div class="divTableHeadUsers">role</div>
+        <div class="divTableHeadUsers">email</div>
+        <div class="divTableHeadUsers">phone</div>
+        <div class="divTableHeadUsers">address</div>
+        <div class="divTableHead"></div>
+        <div class="divTableHead"></div>
+      </div>
+      <div class="divTableRow">
+        <div class="divTableCellUsers"><form action="/users" method="post"><div style="text-align: right;color: blue;font-weight:bold;">добавить-></div></div>
+        <div class="divTableCellUsers"><input class="inputusers" type="text" name="login" value="" size=6></div>
+        <div class="divTableCellUsers"><input class="inputusers" type="text" name="password" value="" size=6></div>
+        <div class="divTableCellUsers"><input class="inputusers" type="text" name="role" value="" size=8></div>
+        <div class="divTableCellUsers"><input class="inputusers" type="text" name="email" value="" size=8></div>
+        <div class="divTableCellUsers"><input class="inputusers" type="text" name="phone" value="" size=8></div>
+        <div class="divTableCellUsers"><input class="inputusers" type="text" name="address" value="" size=25></div>
+        <div class="divTableCellUsers"><input class="inputusers"  type="reset" value="C"></div>
+        <div class="divTableCellUsers"><input type="hidden" name="action" value=""><input class="inputusers"  type="submit" value="OK" onclick="this.form.action.value='add'"></form></div>
+      </div>
+      <% @users.each do |item| %>
+      <div class="divTableRow">
+        <div class="divTableCellUsers"><form action="/users" method="post"><input type="hidden" name="id" value="<%= item['id'] %>"><%= item['id'] %></div>
+        <div class="divTableCellUsers"><input class="inputusers" type="text" name="login" value="<%= item['login'] %>" size=6 <%= "disabled" if item['login']=="admin" %>></div>
+        <div class="divTableCellUsers"><input class="inputusers" type="text" name="password" value="<%= item['password'] %>" size=6></div>
+        <div class="divTableCellUsers"><input class="inputusers" type="text" name="role" value="<%= item['role'] %>" size=8 <%= "disabled" if item['login']=="admin" %>></div>
+        <div class="divTableCellUsers"><input class="inputusers" type="text" name="email" value="<%= item['contact']['email'] %>" size=8></div>
+        <div class="divTableCellUsers"><input class="inputusers" type="text" name="phone" value="<%= item['contact']['phone'] %>" size=8></div>
+        <div class="divTableCellUsers"><input class="inputusers" type="text" name="address" value="<%= item['contact']['address'] %>" size=25 ></div>
+        <div class="divTableCellUsers"><button class="inputusers" onclick="this.form.action.value='del';this.form.submit;" <%= "disabled" if item['login']=="admin" %>>X</button></div>
+        <div class="divTableCellUsers"><input type="hidden" name="action" value=""><input class="inputusers"  type="submit" value="OK" onclick="this.form.action.value='change'"></form></div>
+      </div>
+      <% end %>
+    </div>
+  </div>
+  <div style="text-align: center; margin-top: 20px;">
+    <a href="/admin"><button>Назад</button></a>
+  </div>
+</div>

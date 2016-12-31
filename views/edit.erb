@@ -1,69 +1,86 @@
 <div style="margin: auto; width: 90%">
-  <%= if @product && @product!="" then "<h3>Изменение товара:</h3>" else "<h3>Добавление нового товара:</h3>" end %>
-  <form id="select" action="/admin" method="post">
-  <fieldset>
-  <legend>Выберите товар из списка:</legend>
-    <input id="action" type="hidden" name="action" value="">
-      Список товаров:<br>
-      <select name="product" onchange="this.form.submit()">
-        <option value="">***-=Добавить новый товар=-***</option>
-        <% @db.uniq.each do |item| %>
-        <option value="<%= item['id'] %>" <%= "selected" if item['id']==@product.to_i %>><%= "#{item['name'][0, 70]}..." %></option>
-        <% end %>
-      </select>
-      <<<a href="" onclick="document.getElementById('action').value='delproduct';document.forms['select'].submit();"><button>Удалить этот товар</button></a>
-  </fieldset>
-  </form>
-  <form name="edit-id" action="/admin" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+  <div style="position: relative; width: 100%; height: 2em;">
+    <div style="margin-left: 10px; width: 210px ;float:left; font-weight:bold; font-size: 11pt;">
+      <%= if @product && @product!="" then "Изменение товара:" else "Добавление нового товара:" end %>
+    </div>
+    <div style="width: 180px ;float:right;">
+      <a href="/users" >Управление пользователями</a>
+    </div>
+    <div style="width: 180px ;float:right;">
+      <a href="/purchases" >Осуществленные покупки</a>
+    </div>
+    <div class="clear">&nbsp;</div>
+  </div>
+  <div>
+    <form id="select" action="/admin" method="post">
     <fieldset>
-      <legend><b>Товар:</b></legend>
-      <% item=[];cat=[] %>
-      <% item=@db.select {|elem| elem['id'].to_i==@product.to_i}.uniq[0] if @product && @product!="" %>
-      <% cat=@db.map {|x| x['category'] }.uniq %>
-      <input type="hidden" name="action" value="<%= if @product && @product!="" then 'edit' else 'add' end %>">
-      <input type="hidden" name="id" value="<%= @product if @product && @product!="" %>">
-      Название:<br>
-      <input type="text" name="name" value="<%= item['name'] if @product && @product!="" %>" size=70 required ><br>
-      Категория:<br>
-      <% z=item['category']['category_id'] if @product && @product!="" %>
-      <select name="category">
-        <% cat.each do |y| %>
-        <option value="<%= y['category_id'] %>" <%= "selected" if @product && @product!="" && y['category_id']== z %>><%= y['name'] %></option>
-        <% end %>
-      </select>
-      или новая категория: -> <input type="text" name="newcat" value=""><br>
-      Описание товара:<br>
-      <textarea name="desc" rows=5 cols=72><%= item['description'] if @product && @product!="" %></textarea><br>
-      Количество:<br>
-      <input type="text" name="count" value="<%= item['count'] if @product && @product!="" %>" size=4 required /><br>
-      Цена:<br>
-      <input type="text" name="price" value="<%= item['price'] if @product && @product!="" %>" size=8 required /><br>
-      <div style="margin: 10px 5px; font-weight: bold;">
-        <%= if @product && @product!="" && item['image'] !="" then "Заменить эту картинку?" else "Добавить картинку:" end %>
-        <% if @product && @product!="" && item['image'] !="" %>
-        <div style="margin: 10px 0;">
-          <img src="/<%= item['image'] if @product && @product!="" %>" alt="" height="100px">
-        </div>
-        <% end %>
-      </div>
-      <fieldset>
-        <legend>выберите что-то одно - файл или URL-адрес</legend>
-        url:&nbsp;&nbsp;&nbsp;&nbsp; <input type="text" name="urlpic" value="">
-        или файл <input type="file" name="filepic" placeholder="Выберите файл картинки для товара">
-      </fieldset><br><br>
+    <legend>Выберите товар из списка:</legend>
+      <input id="action" type="hidden" name="action" value="" />
+        Список товаров:<br>
+        <select name="product" onchange="this.form.submit()">
+          <option value="">***-=Добавить новый товар=-***</option>
+          <% @db.uniq.each do |item| %>
+          <option value="<%= item['id'] %>" <%= "selected" if item['id']==@product.to_i %> ><%= "#{item['name'][0, 70]}..." %></option>
+          <% end %>
+        </select>
+        &nbsp;<<&nbsp;
+        <a href="" onclick="document.getElementById('action').value='delproduct';document.forms['select'].submit();">
+          <button>Удалить этот товар</button>
+        </a>
     </fieldset>
-  </form>
+    </form>
+  </div>
+  <div>
+    <form name="edit-id" action="/admin" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+      <fieldset>
+        <legend><b>Товар:</b></legend>
+        <% item=[];cat=[] %>
+        <% item=@db.select {|elem| elem['id'].to_i==@product.to_i}.uniq[0] if @product && @product!="" %>
+        <% cat=@db.map {|x| x['category'] }.uniq %>
+        <input type="hidden" name="action" value="<%= if @product && @product!="" then 'edit' else 'add' end %>">
+        <input type="hidden" name="id" value="<%= @product if @product && @product!="" %>">
+        Название:<br>
+        <input type="text" name="name" value="<%= item['name'] if @product && @product!="" %>" size=70 required ><br>
+        Категория:<br>
+        <% z=item['category']['category_id'] if @product && @product!="" %>
+        <select name="category">
+          <% cat.each do |y| %>
+          <option value="<%= y['category_id'] %>" <%= "selected" if @product && @product!="" && y['category_id']== z %>><%= y['name'] %></option>
+          <% end %>
+        </select>
+        или новая категория: -> <input type="text" name="newcat" value=""><br>
+        Описание товара:<br>
+        <textarea name="desc" rows="5" cols="72"><%= item['description'] if @product && @product!="" %></textarea><br>
+        Количество:<br>
+        <input type="text" name="count" value="<%= item['count'] if @product && @product!="" %>" size=4 required /><br>
+        Цена:<br>
+        <input type="text" name="price" value="<%= item['price'] if @product && @product!="" %>" size=8 required /><br>
+        <br />
+        <input type="checkbox" name="visible" <%= "checked" if @product && @product!="" && item['visible']=="on" %> /><label for="visible">Показывать на витрине?</label><br />
+        <div style="margin: 10px 5px; font-weight: bold;">
+          <%= if @product && @product!="" && item['image'] !="" then "Заменить эту картинку?" else "Добавить картинку:" end %>
+          <% if @product && @product!="" && item['image'] !="" %>
+          <div style="margin: 10px 0;">
+            <img src="/<%= item['image'] if @product && @product!="" %>" alt="" height="100px">
+          </div>
+          <% end %>
+        </div>
+        <fieldset>
+          <legend>выберите что-то одно - файл или URL-адрес</legend>
+          url:&nbsp;&nbsp;&nbsp;&nbsp; <input type="text" name="urlpic" value="">
+          или файл <input type="file" name="filepic" placeholder="Выберите файл картинки для товара">
+        </fieldset><br><br>
+      </fieldset>
+    </form>
+  </div>
   <div style="position:relative; text-align: center;">
         <span style="margin-right: 60px;">
           <a href="#" onclick="document.forms['edit-id'].submit();">
             <button><%= if @product && @product!="" then "Изменить" else "Добавить" end %></button>
           </a>
-          </span>
-        <span "margin-left: 60px;" >
-          <a href="/"  onclick='window.location.href="/"''>
-            <button >Выход</button>
-          </a>
         </span>
-      </div>
+        <span "margin-left: 60px;" >
+          <a href="/"  onclick="window.location.href='/'"><button >Выход</button></a>
+        </span>
   </div>
-
+</div>

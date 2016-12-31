@@ -1,0 +1,49 @@
+            <div >
+            <div>
+              <form action="/register" method="post">
+                <div class="loginform">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th colspan="2">Данные для регистрации</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td colspan="4">Введите имя пользователя и пароль:</td>
+                      </tr>
+                      <tr>
+                        <td><label for="name">*Имя пользователя: </label></td>
+                        <td><input type="text" name="user" id="user" value="" tabindex="1" required size=40 /></td>
+                      </tr>
+                      <tr>
+                        <td><label for="name">*Пароль: </label></td>
+                        <td><input type="password" name="passw" id="passw"" value="" tabindex="2" required size=40 /></td>
+                      </tr>
+                      <tr>
+                        <td><label for="name">*Проверка пароля: </label></td>
+                        <td><input type="password" name="passw" id="password"" value="" tabindex="3" required size=40 /></td>
+                      </tr>
+                      <tr>
+                        <td><label for="name">*E-mail: </label></td>
+                        <td><input type="text" name="email" id="email"" value="" tabindex="4" required size=40 /></td>
+                      </tr>
+                      <tr>
+                        <td><label for="phone">Телефон:</label></td>
+                        <td><input type="text" name="phone" id="phone"" value="" tabindex="5" size=40 /></td>
+                      </tr>
+                      <tr>
+                        <td><label for="address">Адрес</label></td>
+                        <td><textarea name="address" rows=2 cols=30 tabindex="6"></textarea></td>
+                      </tr>
+                      <tr>
+                        <td><input type="submit" value="Зарегистрироваться" /></td>
+                        <td><input type="reset" value="Очистить" /></td>
+                        <td><a href="/login" onClick="return window.location='/login';"><button>выход</button></a></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </form>
+            </div>
+            </div>

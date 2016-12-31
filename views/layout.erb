@@ -36,7 +36,7 @@
                     <% #выборка хеш-массивов категорий с уникальными значениями, исходя из стуктуры хранения данных %>
                     <%  #на выходе массив одномерный, а в нем хеши [{k=>v},{k=>v}...] %>
                     <% @db.map {|item| item['category'] }.uniq.each do |elem| %>
-                    <div class="maket-category-list">
+                    <div class="maket-category-list" onclick="location.href='/category/<%= elem['category_id'] %>'">
                         <a class="info-a-category" href="/category/<%= elem['category_id'] %>"><%= elem['name'] %></a>
                     </div>
                     <% end %>

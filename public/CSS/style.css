@@ -4,16 +4,17 @@ html, body {
     font-family: Trebuchet MS, Arial, Times New Roman;
     font-size: 12px;
     height: 100%;
-    /*padding: 20px auto;*/
-    margin:0;
-    padding:0;
+    margin: 0;
+    padding: 0;
 }
+
+
 /*--------Main---------*/
+
 #container {
     background: #99CC99;
-    /*margin: 30px auto;*/
-        margin-right: auto;
-        margin-left: auto;
+    margin-right: auto;
+    margin-left: auto;
     width: 900px;
     height: 600px;
 }
@@ -22,14 +23,14 @@ html, body {
     background: #66CCCC;
     height: 100px;
     width: 900px;
-    cursor:pointer;
+    cursor: pointer;
 }
 
 #navigation {
     background: #6BC6D7;
     width: 900px;
     height: 20px;
-    position:relative;
+    position: relative;
 }
 
 #menu {
@@ -47,7 +48,7 @@ html, body {
     width: 750px;
     /*height: 465px;*/
         height: 100%;
-    overflow:auto;
+    overflow: auto;
 }
 
 #clear {
@@ -61,114 +62,144 @@ html, body {
     text-align: center;
     bottom: 0;
 }
+
+
 /*--------Main---------*/
+
+
 /*--------Common-------*/
-.center-header{
+
+.center-header {
     text-align: center;
     font-weight: bold;
     font-size: 12pt;
 }
+
+
 /*--------Common-------*/
+
+
 /*--------Layout-------*/
-.maket-header-text{
+
+.maket-header-text {
     text-align: center;
     padding-top: 35px;
     font-weight: bold;
     font-size: 20pt;
 }
+
 .maket-a {
     text-decoration: none;
     color: lightyellow;
 }
-.maket-menu-header{
+
+.maket-menu-header {
     font-weight: bold;
     margin-left: 5px;
     color: darkblue;
     text-decoration: none;
 }
 
-.maket-menu-container{
+.maket-menu-container {
     position: relative;
     width: 150px;
 }
-.maket-category-list{
+
+.maket-category-list {
     margin: 3px 5px;
     font-weight: bold;
     font-size: 103%;
     padding-right: 2px;
     padding-left: 2px;
     color: #6EA080;
-    background-color: rgba(250,250,210,0.5);
+    background-color: rgba(250, 250, 210, 0.5);
+    cursor: pointer;
 }
-.maket-nav-basket{
+
+.maket-nav-basket {
     position: absolute;
     margin-top: 3px;
     left: 40px;
 }
-.maket-nav-login{
-    position:absolute;
-    right:5px;
+
+.maket-nav-login {
+    position: absolute;
+    right: 5px;
 }
-.maket-nav-login-text{
+
+.maket-nav-login-text {
     font-weight: bold;
-    text-decoration:  none;
+    text-decoration: none;
     color: darkslateblue;
 }
-.maket-nav-user{
+
+.maket-nav-user {
     font-weight: bold;
     padding-top: 4px;
     padding-right: 10px;
     display: inline-block;
-    color:  blue;
+    color: blue;
 }
-.maket-footer-nav{
+
+.maket-footer-nav {
     padding-top: 10px;
 }
 
+
 /*--------Layout-------*/
+
+
 /*--------Index--------*/
-.tovar{
+
+.tovar {
     border-top: 1px dotted gray;
     border-bottom: 1px dotted gray;
     /*background: #99CC99;*/
-    background-color: rgba(153,204,153,0.5);
+    background-color: rgba(153, 204, 153, 0.5);
     margin-left: 10px;
     margin-right: 10px;
     margin-bottom: 5px;
 }
-.index-edit-container{
+
+.index-edit-container {
     float: right;
     width: 50px;
     position: relative;
     padding-left: 5px;
     padding-right: 5px;
-    text-align:center;
+    text-align: center;
 }
-.index-edit-span-left{
+
+.index-edit-span-left {
     margin-right: 2px;
 }
-.index-edit-span-right{
+
+.index-edit-span-right {
     margin-right: 2px;
 }
-.index-edit-text-a{
+
+.index-edit-text-a {
     text-decoration: none;
     color: green;
     font-weight: bold;
 }
+
 .index-a {
     text-decoration: none;
     color: green;
 }
-.index-tovar-list{
-    cursor:pointer;
+
+.index-tovar-list {
+    cursor: pointer;
 }
 
-.index-tovar-list-item{
+.index-tovar-list-item {
     padding-top: 5px;
     padding-left: 5px;
     padding-right: 3px;
 }
-.index-tovar-list-item-right{
+
+.index-tovar-list-item-right {
     position: absolute;
     right: 20px;
     bottom: 0px;
@@ -177,18 +208,23 @@ html, body {
     padding-bottom: 5px;
 }
 
-.index-tovar-list-nametxt{
+.index-tovar-list-nametxt {
     font-weight: bold;
     font-size: 11pt;
     color: maroon;
 }
-.index-tovar-list-container{
-    position:relative;
+
+.index-tovar-list-container {
+    position: relative;
 }
 
+
 /*--------Index--------*/
+
+
 /*--------Info---------*/
-.info-header{
+
+.info-header {
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -201,20 +237,24 @@ html, body {
     vertical-align: middle;
     line-height: 1.7em;
 }
-.info-header-text{
+
+.info-header-text {
     color: #0A5F04;
 }
-.info-container{
-  width: 100%;
-  height: 100%;
-  background: lightgoldenrodyellow;
-  overflow: auto;
+
+.info-container {
+    width: 100%;
+    height: 100%;
+    background: lightgoldenrodyellow;
+    overflow: auto;
 }
-.info-container-for-leftmiddle{
+
+.info-container-for-leftmiddle {
     position: relative;
     width: 100%;
 }
-.info-container-left{
+
+.info-container-left {
     padding-top: 5px;
     padding-left: 5px;
     width: 33%;
@@ -222,9 +262,12 @@ html, body {
     float: left;
     background: lightgoldenrodyellow;
 }
+
+
 /*---Info-->Picture----*/
-.picture-box-outer{
-    width:230px;
+
+.picture-box-outer {
+    width: 230px;
     height: 230px;
     background: #fff;
     border: 1px solid #cecece;
@@ -236,7 +279,8 @@ html, body {
     margin-left: auto;
     padding: 2px;
 }
-.picture-box-middle-flex{
+
+.picture-box-middle-flex {
     width: 98%;
     height: 98%;
     /*border: 1px solid #cecece;*/
@@ -250,7 +294,8 @@ html, body {
     top: 50%;
     left: 50%;
 }
-.picture-box{
+
+.picture-box {
     max-width: none;
     min-width: auto;
     min-height: auto;
@@ -261,30 +306,34 @@ html, body {
     left: 50%;
     transform: translate(-50%, -50%);
 }
- /*---Info-->Picture----*/
 
-.info-container-middle{
+
+/*---Info-->Picture----*/
+
+.info-container-middle {
     /*float: left;*/
     /*margin-left: 33%; ---> value on margin-left see style on element and for  width property also*/
     padding-bottom: 20px;
 }
-.info-middle-name{
+
+.info-middle-name {
     padding-top: 7px;
     padding-left: 7px;
     padding-right: 7px;
 }
-.info-maddle-name-head{
+
+.info-maddle-name-head {
     font-weight: bold;
     font-size: 11pt;
 }
 
-.info-a-category{
+.info-a-category {
     text-decoration: none;
     font-weight: bold;
     color: green;
 }
 
-.info-middle-nametxt{
+.info-middle-nametxt {
     /*font-weight: bold;*/
     /*font-size: 11pt;*/
     color: maroon;
@@ -293,33 +342,41 @@ html, body {
     text-align: justify;
     font: bold small tahoma;
 }
-.info-middle-elem{
+
+.info-middle-elem {
     padding: 7px;
 }
-.info-middle-button-container{
+
+.info-middle-button-container {
     position: relative;
 }
-.info-middle-battonadd{
-    float:left;
+
+.info-middle-battonadd {
+    float: left;
     margin-right: 10px;
 }
-.info-middle-battonbasket{
-    float:left;
+
+.info-middle-battonbasket {
+    float: left;
     margin-left: 10px;
 }
-.info-count-minus{
+
+.info-count-minus {
     font-weight: bold;
     color: red;
 }
-.info-container-bottom{
+
+.info-container-bottom {
     overflow: auto;
     width: 100%;
     border-top: 1px dotted darkgrey;
 }
-.info-right-descript{
+
+.info-right-descript {
     font-weight: bold;
 }
-.info-right-descripttxt{
+
+.info-right-descripttxt {
     font-style: italic;
     padding: 5px;
     font-size: 10pt;
@@ -327,29 +384,42 @@ html, body {
     text-indent: 1.5em;
 }
 
+
 /*--------Info-------*/
+
+
 /*--------Basket-------*/
-.basket-container{
+
+.basket-container {
     margin: 10px;
 }
-.basket-buttons{
+
+.basket-buttons {
     width: 100%;
     text-align: center;
     margin-top: 10px;
 }
+
+
 /*--------Basket-------*/
-    /* --------BasketTable-------*/
-.divTable{
+
+
+/* --------BasketTable-------*/
+
+.divTable {
     display: table;
     width: 100%;
 }
+
 .divTableRow {
     display: table-row;
 }
+
 .divTableHeading {
     background-color: #EEE;
     display: table-header-group;
 }
+
 .divTableHead {
     border: 1px solid #999999;
     display: table-cell;
@@ -357,61 +427,95 @@ html, body {
     font-weight: bold;
     text-align: center;
 }
+
 .divTableCell {
     border: 1px solid #999999;
     display: table-cell;
     padding: 3px 10px;
     vertical-align: middle;
 }
+
+.divTableHeadUsers {
+    border: 1px solid #999999;
+    display: table-cell;
+    padding: 0;
+    font-weight: bold;
+    text-align: center;
+}
+
+.divTableCellUsers {
+    border: 1px solid #999999;
+    display: table-cell;
+    padding: 0;
+    vertical-align: middle;
+}
+
 .divTableHeading {
     background-color: #EEE;
     display: table-header-group;
     font-weight: bold;
 }
+
 .divTableFoot {
     background-color: #EEE;
     display: table-footer-group;
     font-weight: bold;
 }
+
 .divTableBody {
     display: table-row-group;
 }
+
+
 /* --------Table-------*/
+
+
 /*---------Login-------*/
-.login-form-level1{
-    position:relative;
-    width:100%;
+
+.login-form-level1 {
+    position: relative;
+    width: 100%;
 }
-.login-forminputs-left{
+
+.login-forminputs-left {
     margin-left: 10px;
-    margin-top:10px;
-    width:150%px;
-    float:left;
+    margin-top: 10px;
+    width: 150%px;
+    float: left;
 }
-.login-forminputs-right{
+
+.login-forminputs-right {
     margin-left: 10px;
-    margin-top:10px;
-    width:200px;
-    float:right;
+    margin-top: 10px;
+    width: 200px;
+    float: right;
 }
-.login-table-info{
-    font-family:Trebuchet MS, Arial, Times New Roman;font-size: 1em;
+
+.login-table-info {
+    font-family: Trebuchet MS, Arial, Times New Roman;
+    font-size: 1em;
 }
-.login-table-cells{
+
+.login-table-cells {
     text-align: left;
 }
-.login-table-cell-remark{
+
+.login-table-cell-remark {
     text-align: left;
     font-size: 80%;
 }
+
+
 /*--------Login---------*/
-.messages-block{
+
+.messages-block {
     padding: 10px;
     margin: 25% 8%;
     border-radius: 7px;
     border: 3px solid gray;
     background: #99CC99;
 }
+
 button {
     border: 1px solid gray;
     padding: 2px 2px;
@@ -419,7 +523,8 @@ button {
     font-size: 8pt;
     cursor: pointer;
 }
-.button-index-list{
+
+.button-index-list {
     background: #6EA080;
     padding: 2px 4px;
     text-align: center;
@@ -427,6 +532,40 @@ button {
     color: lightgoldenrodyellow;
     cursor: pointer;
 }
+
 a {
     text-decoration: none;
+}
+
+.inputusers {
+    padding: 0;
+    border: 0;
+    -moz-box-sizing: border-box;
+    /* Для Firefox */
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    font-size: 1em;
+}
+
+button.index-hide-button {
+  /* Первые два свойства нужны чтобы убрать отступы в IE */
+  overflow: visible;
+  width: auto;
+  /* Убираем отступы */
+  margin: 0;
+  padding: 0;
+  /* Убираем все элементы оформления кнопки */
+  /*background: none;*/
+  background: rgba(153, 204, 153, 0.5);
+  border: none !important;
+  border: 0;
+  background-color: rgba(153, 204, 153, 0.5);
+  /* Обычный для ссылок курсор */
+  cursor: pointer;
+  -moz-user-select: text;
+  color: green;
+  font-weight: bold;
+  outline:none;
+  display: inline-block;
 }
