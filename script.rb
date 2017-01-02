@@ -55,7 +55,7 @@ get '/elem/:id' do
   erb :info
 end
 
-get '/login' do
+get '/login/?' do
   @title = @content_header = @strings['GET']['login']['title']
   redirect "/" if session['logged']
   erb :login
@@ -77,7 +77,7 @@ post "/login" do
   end
 end
 
-get '/logout' do
+get '/logout/?' do
   redirect "/" unless session['logged']
   session['logged'].delete('basket')
   session.delete('logged')
@@ -85,7 +85,7 @@ get '/logout' do
   redirect "/"
 end
 
-get '/register' do
+get '/register/?' do
   @title = @strings['POST']['registration']['title']
   erb :registration
 end
@@ -122,7 +122,7 @@ post "/register" do
 end
 
 
-get "/basket" do
+get "/basket/?" do
   redirect "/login" unless session['logged']
   @title = @content_header = @strings['GET']['basket']['title']
   erb :basket
@@ -156,34 +156,24 @@ get "/basket/:id" do
   end
 end
 
-get '/purchase' do
+get '/purchase/?' do
   redirect "/login" unless session['logged']
   if session['logged']['basket']
     File.file?("#{@dbpath}/purchases.json")? @purchases||= JSON.parse(File.open("#{@dbpath}/purchases.json",'r:UTF-8',&:read)) :  @purchases||=[]
     File.file?("#{@dbpath}/users.json")? @users||= JSON.parse(File.open("#{@dbpath}/users.json",'r:UTF-8',&:read)) :  @users||=[]
-    i=0
     time=Time.now.to_i
-      # session['logged']['basket'].each do |key,value|
-      #   index=@db.index{|item| item['id'].to_s == key.to_s }
-      #   if @db[index]['count'] - value >0
-      #     @db[i]['count']-=value
-      #     user=@users.select {|elem| elem['login'] == session['logged']['user']}[0]
-      #     @purchases.push()
-      #   end
-      # end
-    while i <= @db.length-1
-      session['logged']['basket'].each do |key,value|
-        if @db[i]['id'].to_s == key.to_s && @db[i]['count']-value >= 0
-          @db[i]['count'] -= value
-          # есть нюанс, что в базе, пользователей с одинаковым именем может быть несколько, тогда нужно в сессиях хранить еще и user_id
-          # данная выборка из массива пользователей  исходит из того, что логин уникален в базе
-          user = @users.select {|elem| elem['login'] == session['logged']['user']}[0]
-          @purchases.push(
+    session['logged']['basket'].each do |key,value|
+      i=@db.index{|item| item['id'].to_s == key.to_s }
+      if @db[i]['count'] - value >0
+        @db[i]['count']-=value
+        user=@users.select {|elem| elem['login'] == session['logged']['user']}[0]
+        @purchases.push(
             {
               "id"                => rand(10000000000000000),
               "invoice"           => "#{rand(10000)}-#{rand(10000)}-#{rand(10000)}-#{rand(10000)}",
               "product_id"        => key.to_i,
-              "count"             => value,"datetime"=>time,
+              "count"             => value,
+              "datetime"          => time,
               "datetimevisble"    => Time.at(time),
               "cookie_session_id" => session['session_id'],
               "payinfo"           => "",
@@ -195,10 +185,8 @@ get '/purchase' do
                   "address" => !user.empty??user['contact']['address']:""
               }
             }
-          )
-        end
+        )
       end
-      i+=1
     end
     session['logged']['basket'] = nil
     session['logged'].delete('basket')
@@ -210,7 +198,7 @@ get '/purchase' do
   erb :msg
 end
 
-get '/trash' do
+get '/trash/?' do
   if session['logged']
     session['logged']['basket'] = nil
     session['logged'].delete('basket')
@@ -219,7 +207,7 @@ get '/trash' do
 end
 
 # ------------------------------------------------------------------------------
-["/admin","/admin/:product"].each do |path|
+["/admin/?","/admin/:product/?"].each do |path|
   get path do
     redirect "/" unless session['logged'] && session['logged']['user'] == "admin"
     @product = params[:product] unless params[:product].nil?
@@ -303,7 +291,7 @@ post "/admin" do
   erb :edit
 end
 
-get '/users' do
+get '/users/?' do
   redirect "/" unless session['logged'] && session['logged']['user'] == "admin"
   @users ||= JSON.parse(File.open("#{@dbpath}/users.json",'r:UTF-8',&:read))
   erb :users
@@ -348,7 +336,7 @@ end
     erb :users
   end
 
-  get '/purchases' do
+  get '/purchases/?' do
     redirect "/" unless session['logged'] && session['logged']['user'] == "admin"
     @purchases=JSON.parse(File.open("#{@dbpath}/purchases.json",'r:UTF-8',&:read))
     erb :purchases
