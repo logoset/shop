@@ -17,6 +17,7 @@ configure do
   set :port, 7000
   enable :sessions
   # set :environment, :production
+  # set :protection, except: [:path_traversal, :session_hijacking]
 end
 
 before do
@@ -68,6 +69,7 @@ post "/login" do
   unless user.empty?
     session['logged']         = Hash.new
     session['logged']['user'] = params[:user]
+    session['logged']['role'] = user[0]['role']
     redirect "/"
   else
     @msg   = @strings['POST']['login']['msg']['error-auth']
@@ -80,6 +82,8 @@ end
 get '/logout/?' do
   redirect "/" unless session['logged']
   session['logged'].delete('basket')
+  session['logged'].delete('role')
+  session['logged'].delete('user')
   session.delete('logged')
   session.clear
   redirect "/"
@@ -209,14 +213,14 @@ end
 # ------------------------------------------------------------------------------
 ["/admin/?","/admin/:product/?"].each do |path|
   get path do
-    redirect "/" unless session['logged'] && session['logged']['user'] == "admin"
+    redirect "/" unless session['logged'] && session['logged']['role'] == "administrator"
     @product = params[:product] unless params[:product].nil?
     erb :edit
   end
 end
 
 post "/admin" do
-  redirect "/" unless session['logged'] && session['logged']['user'] == "admin"
+  redirect "/" unless session['logged'] && session['logged']['role'] == "administrator"
   if params[:action] == "" && params[:product] !="" && params[:product] then
     @product = params[:product] unless params[:product].nil?
     @action  = params[:action] unless params[:action].nil?
@@ -292,13 +296,13 @@ post "/admin" do
 end
 
 get '/users/?' do
-  redirect "/" unless session['logged'] && session['logged']['user'] == "admin"
+  redirect "/" unless session['logged'] && session['logged']['role'] == "administrator"
   @users ||= JSON.parse(File.open("#{@dbpath}/users.json",'r:UTF-8',&:read))
   erb :users
 end
 
   post "/users" do
-    redirect "/" unless session['logged'] && session['logged']['user'] == "admin"
+    redirect "/" unless session['logged'] && session['logged']['role'] == "administrator"
     if params[:id] && params[:id]!=""
       @users ||= JSON.parse(File.open("#{@dbpath}/users.json",'r:UTF-8',&:read))
       i = @users.index{|item| item['id']==params[:id].to_i}
@@ -337,7 +341,7 @@ end
   end
 
   get '/purchases/?' do
-    redirect "/" unless session['logged'] && session['logged']['user'] == "admin"
+    redirect "/" unless session['logged'] && session['logged']['role'] == "administrator"
     @purchases=JSON.parse(File.open("#{@dbpath}/purchases.json",'r:UTF-8',&:read))
     erb :purchases
   end

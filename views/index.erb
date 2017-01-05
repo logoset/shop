@@ -1,10 +1,10 @@
 <!--  ./views/index.erb -->
 <div class="center-header"><%= @content_header %></div>
 <% @products.each do |elem| %>
-  <% if elem['visible']=="on" || (session['logged'] && session['logged']['user']=="admin") %>
+  <% if elem['visible']=="on" || (session['logged'] && session['logged']['role'] == "administrator") %>
 <div class="tovar">
     <div class="index-tovar-list" onclick="location.href='/elem/<%= elem['id'] %>'" >
-            <% if session['logged'] && session['logged']['user'] == "admin" %>
+            <% if session['logged'] && session['logged']['role'] == "administrator" %>
             <div class="index-edit-container">
                 <a class="index-edit-text-a" href="/admin/<%= elem['id'] %>">
                     <span class="index-edit-span">

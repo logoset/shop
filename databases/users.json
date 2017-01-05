@@ -20,5 +20,16 @@
       "phone": "+71234567899",
       "address": "Россия, Краснознаменск, ул.Пользователя 55"
     }
+  },
+  {
+    "id": 3702923855888551,
+    "login": "test",
+    "password": "test",
+    "role": "administrator",
+    "contact": {
+      "email": "test@test.ru",
+      "phone": "+7123456789",
+      "address": "moscow street"
+    }
   }
 ]
