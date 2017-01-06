@@ -5,18 +5,19 @@ gem 'sinatra'
 gem 'sinatra-contrib'
 gem 'rake'
 gem 'json'
-gem 'thin'
+gem 'puma'
+# gem 'thin'
 
-group :development do
-  gem 'shotgun'
-  gem 'tux'
-  gem 'sqlite3'
-end
-
-group :production do
-  gem 'pg'
-end
-
-group :test do
-  gem 'rspec'
-end
+# group :development do
+#   gem 'shotgun'
+#   gem 'tux'
+#   gem 'sqlite3'
+# end
+#
+# group :production do
+#   gem 'pg'
+# end
+#
+# group :test do
+#   gem 'rspec'
+# end
