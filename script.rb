@@ -14,11 +14,12 @@ require "sinatra/reloader" if development?
 require 'open-uri'
 
 configure do
-  set :port, 7000
+  set :bind, '0.0.0.0'
+  set :port, 8080
   set :session_secret, "328479283uf923fu8932fu923uf9832f23f232"
   enable :sessions
-  # set :server, %w[puma webrick thin mongrel]
   set :environment, :production
+  # set :server, %w[puma webrick thin mongrel]
   # set :protection, except: [:path_traversal, :session_hijacking]
 end
 
@@ -170,7 +171,7 @@ get '/purchase/?' do
     time=Time.now.to_i
     session['logged']['basket'].each do |key,value|
       i=@db.index{|item| item['id'].to_s == key.to_s }
-      if @db[i]['count'] - value >0
+      if !i.nil? && (@db[i]['count'] - value >0)
         @db[i]['count']-=value
         user=@users.select {|elem| elem['login'] == session['logged']['user']}[0]
         @purchases.push(
