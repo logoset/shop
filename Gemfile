@@ -3,9 +3,9 @@ ruby '2.3.1' # версия руби
 
 gem 'sinatra'
 gem 'sinatra-contrib'
-gem 'rake'
+# gem 'rake'
 gem 'json'
-gem 'puma'
+# gem 'puma'
 # gem 'thin'
 
 # group :development do
