@@ -3,8 +3,8 @@ ruby '2.3.1' # версия руби
 
 gem 'sinatra'
 gem 'sinatra-contrib'
-# gem 'rake'
 gem 'json'
+# gem 'rake'
 # gem 'puma'
 # gem 'thin'
 

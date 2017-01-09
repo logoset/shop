@@ -347,18 +347,3 @@ end
     @purchases=JSON.parse(File.open("#{@dbpath}/purchases.json",'r:UTF-8',&:read))
     erb :purchases
   end
-# ------------------------------------------------------------------------------
-__END__
-
-@@ msg
-<table width='100%' height='100%'>
-  <tr align='center'>
-    <td align='center'>
-      <div class="messages-block">
-        <%= @msg %>
-        <br><br>
-        <a href='<%= @link %>'><button class="button-index-list">назад</button></a>
-      </div>
-    </td>
-  </tr>
-</table>
