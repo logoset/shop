@@ -17,7 +17,7 @@ configure do
   set :port, 7000
   set :session_secret, "328479283uf923fu8932fu923uf9832f23f232"
   enable :sessions
-  set :server, %w[puma webrick thin mongrel]
+  # set :server, %w[puma webrick thin mongrel]
   set :environment, :production
   # set :protection, except: [:path_traversal, :session_hijacking]
 end
