@@ -15,7 +15,7 @@ require 'open-uri'
 
 configure do
   set :bind, '0.0.0.0'
-  set :port, 8080
+  set :port, 7000
   set :session_secret, "328479283uf923fu8932fu923uf9832f23f232"
   enable :sessions
   set :environment, :production
